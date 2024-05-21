@@ -21,7 +21,7 @@
             {% for question in questions %}
             <div class="card mt-4">
                 <div class="card-header">
-                    {% if question.user %}
+                    {% if question.user %} 
                         Question posée par {{ question.user.prenom }} le {{ question.dateN|date('d/m/Y H:i') }}
                     {% else %}
                         Question posée par un utilisateur inconnu le {{ question.dateN|date('d/m/Y H:i') }}
