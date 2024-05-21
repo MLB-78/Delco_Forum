@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forum des questions {% endblock %}
+
+{% block body %}
+  {% if app.user %}
+    <h1>Bienvenue {{ app.user.prenom }} sur le Forum des questions</h1>
+  {% endif %}
+    <div class="container">
+        <h1>Poser une question</h1>
+        
+        <div class="card mt-4 mb-4">
+            <div class="card-body">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
+
+            <br>
+
+            {% for question in questions %}
+            <div class="card mt-4">
+                <div class="card-header">
+                    {% if question.user %}
+                        Question posée par {{ question.user.prenom }} le {{ question.dateN|date('d/m/Y H:i') }}
+                    {% else %}
+                        Question posée par un utilisateur inconnu le {{ question.dateN|date('d/m/Y H:i') }}
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {{ question.message }}
+                </div>
+            </div>
+            {% endfor %}
+  
+        </div>
+    </div>
+{% endblock %}
