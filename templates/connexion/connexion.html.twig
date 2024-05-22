@@ -16,12 +16,12 @@
         <label for="inputEmail">Email</label>
         <input type="email" id="inputEmail" name="email" value="{{ last_username }}" required autofocus>
 
-        <label for="inputPassword">Password</label>
+        <label for="inputPassword">Mot de passe</label>
         <input type="password" id="inputPassword" name="password" required autocomplete="current-password">
 
         <div class="button-group">
             <button type="submit">Se connecter</button>
-            <button type="button" id="rs" onclick="history.back()">Revenir en arrière</button>
+            <button type="button" id="rs" onclick="window.location.href='{{ path('app_home') }}'">Revenir en arrière</button>
         </div>
     </form>
 
