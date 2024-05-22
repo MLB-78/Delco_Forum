@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>{% block title %}Test - G1Besoin{% endblock %}</title>
     <link rel="icon" href="">
+    <link rel="stylesheet" href="{{ asset('app.css') }}">
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -15,25 +16,32 @@
 <body>
     {% block body %}
     
-    <h1 style="text-align:center">TEST - G1Besoin</h1>
+        <div class="titre" id="mids">
+            <h1>TEST - G1Besoin</h1>
+        </div>   
 
-        <ul>
-            <li><a href="{{ path('inscription') }}">Inscription</a></li>
-            <li><a href="{{ path('connexion') }}">Connexion</a></li>
-        </ul>
+    
+        <div class="buttons">
+            <a href="{{ path('inscription') }}" id="btn">Inscription</a>
+            <a href="{{ path('connexion') }}" id="btn">Connexion</a>
+        </div>
+    
 
         {# Affichage des questions #}
-        <h2>Questions :</h2>
-        <ul>
-            {% for question in questions %}
-                {{ question.message }}
-                <p>
+        <h2 id="mids">Connectez vous afin de nous patagez vos connaissances</h2>
+        <div class="card-container">
+            {% for question in questions|reverse %}
+            <div class="card">
+                <div class="card-content">
+                    <p>{{ question.message }}</p>
                     {% if question.user is not null %}
-                        Ajoutée par {{ question.user.prenom }} le {{ question.dateN|date('d/m/Y H:i') }}
+                    <p class="info">Ajoutée par {{ question.user.prenom }} le {{ question.dateN|date('d/m/Y H:i') }}</p>
                     {% endif %}
-                </p>
+                </div>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
+        
     
     {% endblock %}
 </body>

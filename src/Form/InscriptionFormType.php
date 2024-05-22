@@ -41,10 +41,10 @@ class InscriptionFormType extends AbstractType
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'vos 2 mots de passes doivent être identiques.',
+                'invalid_message' => 'Vos 2 mots de passes doivent être identiques.',
                 'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
+                'first_options'  => ['label' => 'Mot de Passe'],
+                'second_options' => ['label' => 'Saisissez une 2ème fois votre mot de passe'],
             ]);
     }
 
