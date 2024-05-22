@@ -1,11 +1,10 @@
 <?php
-// src/Controller/QuestionsController.php
-
 namespace App\Controller;
 
 use App\Entity\Questions;
+use App\Entity\Reponses;
 use App\Form\QuestionFormType;
-use App\Service\QuestionService;
+use App\Form\ReponseType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,13 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class QuestionsController extends AbstractController
 {
-    private $questionService;
-
-    public function __construct(QuestionService $questionService)
-    {
-        $this->questionService = $questionService;
-    }
-
     /**
      * @Route("/questions", name="app_questions")
      */
@@ -30,27 +22,65 @@ class QuestionsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Récupère l'utilisateur connecté
+            // récupére l'utilisateur actuel
             $user = $this->getUser();
-            
-            // Assigne l'utilisateur à la question
+            // l'utilisateur comme l'émetteur de la question
             $question->setUser($user);
 
-            // Traitement du formulaire ici, par exemple, enregistrer la question en base de données
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($question);
             $entityManager->flush();
 
-            // Redirection après soumission du formulaire
+            // redirection vers la page question
             return $this->redirectToRoute('app_questions');
         }
 
-        // Récupérer toutes les questions avec les utilisateurs
-        $questions = $this->getDoctrine()->getRepository(Questions::class)->findAllWithUsers();
+        // récupére toutes les questions triés par date
+        $questions = $this->getDoctrine()->getRepository(Questions::class)->findAllWithUsersSortedByDate();
 
         return $this->render('questions/questions.html.twig', [
             'form' => $form->createView(),
-            'questions' => $questions, // Passer les questions à la vue Twig
+            'questions' => $questions,
+        ]);
+    }
+
+    /**
+     * @Route("/question/{id}/repondre", name="repondre_question")
+     */
+    public function repondreQuestion(Request $request, $id): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $question = $entityManager->getRepository(Questions::class)->find($id);
+
+        if (!$question) {
+            throw $this->createNotFoundException('La question demandée n\'existe pas');
+        }
+
+        $reponse = new Reponses();
+        $reponseForm = $this->createForm(ReponseType::class, $reponse);
+        $reponseForm->handleRequest($request);
+
+        if ($reponseForm->isSubmitted() && $reponseForm->isValid()) {
+            // récupére l'utilisateur
+            $user = $this->getUser();
+            // utilisateur comme l'émetteur de la réponse
+            $reponse->setUser($user);
+            // défini la question à laquelle la réponse est associée
+            $reponse->setQuestion($question);
+            // défini la date 
+            $reponse->setDateN(new \DateTime());
+
+            $entityManager->persist($reponse);
+            $entityManager->flush();
+
+            // Redirection vers questions 
+            return $this->redirectToRoute('app_questions');
+        }
+
+        return $this->render('questions/reponses.html.twig', [
+            'question' => $question,
+            'reponse_form' => $reponseForm->createView(),
         ]);
     }
 }
+?>

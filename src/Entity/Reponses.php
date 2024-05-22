@@ -29,8 +29,9 @@ class Reponses
 
     /**
      * @ORM\ManyToOne(targetEntity=Questions::class, inversedBy="reponse")
+     * @ORM\JoinColumn(name="questions_id", referencedColumnName="id")
      */
-    private $questions;
+    private $question;
 
     /**
      * @ORM\Column(type="datetime")
@@ -66,15 +67,14 @@ class Reponses
         return $this;
     }
 
-    public function getQuestions(): ?Questions
+    public function getQuestion(): ?Questions
     {
-        return $this->questions;
+        return $this->question;
     }
 
-    public function setQuestions(?Questions $questions): self
+    public function setQuestion(?Questions $question): self
     {
-        $this->questions = $questions;
-
+        $this->question = $question;
         return $this;
     }
 

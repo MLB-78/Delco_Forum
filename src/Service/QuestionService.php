@@ -1,6 +1,4 @@
 <?php
-// src/Service/QuestionService.php
-
 namespace App\Service;
 
 use App\Entity\Questions;
@@ -15,6 +13,7 @@ class QuestionService
         $this->entityManager = $entityManager;
     }
 
+    // récupére les questions
     public function getAllQuestions(): array
     {
         return $this->entityManager->getRepository(Questions::class)->findAll();

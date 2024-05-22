@@ -1,5 +1,4 @@
 <?php
-// src/Controller/EnregistrementController.php
 namespace App\Controller;
 
 use App\Entity\User;
@@ -24,6 +23,7 @@ class InscriptionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // hashage du mdp
             $user->setPassword(
                 $passwordHasher->hashPassword(
                     $user,
@@ -34,7 +34,7 @@ class InscriptionController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Redirection vers ma connexion
+            // redirection vers la connexion
             return $this->redirectToRoute('connexion');
         }
 

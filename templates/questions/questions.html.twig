@@ -5,10 +5,12 @@
 {% block body %}
   {% if app.user %}
     <h1>Bienvenue {{ app.user.prenom }} sur le Forum des questions</h1>
+    <a href="{{ path('app_home') }}" class="btn btn-danger">Déconnexion</a>
   {% endif %}
     <div class="container">
         <h1>Poser une question</h1>
         
+        {# formulaire #}
         <div class="card mt-4 mb-4">
             <div class="card-body">
                 {{ form_start(form) }}
@@ -17,7 +19,7 @@
             </div>
 
             <br>
-
+            {# questions #}
             {% for question in questions %}
             <div class="card mt-4">
                 <div class="card-header">
@@ -28,7 +30,7 @@
                     {% endif %}
                 </div>
                 <div class="card-body">
-                    {{ question.message }}
+                    <a href="{{ path('repondre_question', {'id': question.id}) }}">{{ question.message }}</a>
                 </div>
             </div>
             {% endfor %}

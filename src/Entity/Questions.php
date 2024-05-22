@@ -31,9 +31,9 @@ class Questions
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Reponses::class, mappedBy="questions")
+     * @ORM\OneToMany(targetEntity=Reponses::class, mappedBy="question", orphanRemoval=true)
      */
-    private $reponse;
+    private $reponses;
 
     /**
      * @ORM\Column(type="datetime")
@@ -42,11 +42,9 @@ class Questions
 
     public function __construct()
     {
-        $this->reponse = new ArrayCollection();
+        $this->reponses = new ArrayCollection();
         $this->dateN = new \DateTime('now', new \DateTimeZone('Europe/Paris')); // Set default value to current date in Paris timezone
     }
-
-
 
     public function getId(): ?int
     {
@@ -80,16 +78,16 @@ class Questions
     /**
      * @return Collection<int, Reponses>
      */
-    public function getReponse(): Collection
+    public function getReponses(): Collection
     {
-        return $this->reponse;
+        return $this->reponses;
     }
 
     public function addReponse(Reponses $reponse): self
     {
-        if (!$this->reponse->contains($reponse)) {
-            $this->reponse[] = $reponse;
-            $reponse->setQuestions($this);
+        if (!$this->reponses->contains($reponse)) {
+            $this->reponses[] = $reponse;
+            $reponse->setQuestion($this);
         }
 
         return $this;
@@ -97,10 +95,10 @@ class Questions
 
     public function removeReponse(Reponses $reponse): self
     {
-        if ($this->reponse->removeElement($reponse)) {
+        if ($this->reponses->removeElement($reponse)) {
             // set the owning side to null (unless already changed)
-            if ($reponse->getQuestions() === $this) {
-                $reponse->setQuestions(null);
+            if ($reponse->getQuestion() === $this) {
+                $reponse->setQuestion(null);
             }
         }
 

@@ -1,5 +1,4 @@
 <?php
-
 // src/Repository/QuestionsRepository.php
 
 namespace App\Repository;
@@ -27,11 +26,23 @@ class QuestionsRepository extends ServiceEntityRepository
     /**
      * @return Questions[]
      */
-    public function findAllWithUsers(): array
+    public function findAllWithUsersSortedByDate(): array
     {
         return $this->createQueryBuilder('q')
             ->leftJoin('q.user', 'u')
             ->addSelect('u')
+            // trie par date d'ajout
+            ->orderBy('q.dateN', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+        /**
+     * @return Reponses[] Returns an array of Reponses objects
+     */
+    public function findAllByDate(): array
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.dateN', 'DESC')
             ->getQuery()
             ->getResult();
     }
