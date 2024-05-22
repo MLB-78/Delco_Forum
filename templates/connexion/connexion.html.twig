@@ -19,9 +19,10 @@
         <label for="inputPassword">Password</label>
         <input type="password" id="inputPassword" name="password" required autocomplete="current-password">
 
-        <button type="submit">
-            Sign in
-        </button>
+        <div class="button-group">
+            <button type="submit">Se connecter</button>
+            <button type="button" id="rs" onclick="history.back()">Revenir en arrière</button>
+        </div>
     </form>
 
 {% endblock %}

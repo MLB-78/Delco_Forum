@@ -25,6 +25,7 @@ class QuestionFormType extends AbstractType
                 'data' => new \DateTime(), 
                 'disabled' => true,
             ])
+            
             ->add('submit', SubmitType::class, [
                 'label' => 'Soumettre',
                 'attr' => ['class' => 'btn btn-primary'],

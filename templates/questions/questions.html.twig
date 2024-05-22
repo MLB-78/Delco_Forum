@@ -1,25 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Forum des questions {% endblock %}
+{% block title %}Forum des questions{% endblock %}
 
 {% block body %}
-  {% if app.user %}
-    <h1>Bienvenue {{ app.user.prenom }} sur le Forum des questions</h1>
-    <a href="{{ path('app_home') }}" class="btn btn-danger">Déconnexion</a>
-  {% endif %}
+    {% if app.user %}
+        <div class="espace">
+            <h1>Bienvenue {{ app.user.prenom }} sur le Forum des questions</h1>
+            <div class="button-group">
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#logoutModal">Déconnexion</button>
+            </div>
+        </div>
+    {% endif %}
+    
     <div class="card-container">
-        
-        {# formulaire #}
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            {{ form_end(form) }}
-
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
         <br>
-        {# questions #}
+
         {% for question in questions %}
         <div class="card">
             <div class="card-header">
-                {% if question.user %} 
+                {% if question.user %}
                     Question posée par {{ question.user.prenom }} le {{ question.dateN|date('d/m/Y H:i') }}
                 {% else %}
                     Question posée par un utilisateur inconnu le {{ question.dateN|date('d/m/Y H:i') }}
@@ -30,6 +32,7 @@
             </div>
         </div>
         {% endfor %}
-
     </div>
+    
+    {% include 'modal/modal.html.twig' %}
 {% endblock %}

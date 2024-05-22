@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\ReponsesRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Repository\ReponsesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=ReponsesRepository::class)
  */
@@ -19,6 +20,7 @@ class Reponses
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le message ne peut pas être vide")
      */
     private $messageR;
 
@@ -37,6 +39,12 @@ class Reponses
      * @ORM\Column(type="datetime")
      */
     private $dateN;
+
+    public function __construct()
+    {
+        $this->reponses = new ArrayCollection();
+        $this->dateN = new \DateTime('now', new \DateTimeZone('Europe/Paris')); // Set default value to current date in Paris timezone
+    }
 
     public function getId(): ?int
     {
@@ -77,7 +85,6 @@ class Reponses
         $this->question = $question;
         return $this;
     }
-
     public function getDateN(): ?\DateTimeInterface
     {
         return $this->dateN;

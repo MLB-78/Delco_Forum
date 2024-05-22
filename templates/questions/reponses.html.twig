@@ -1,23 +1,46 @@
-{# templates/questions/reponses.html.twig #}
+{% extends 'base.html.twig' %}
 
-<h1>{{ question.message }}</h1>
+{% block title %}Détail de la question{% endblock %}
 
-<hr>
+{% block body %}
+    <h1 id="mids">{{ question.message }}</h1>
+    
+    
+    {# Formulaire de réponse #}
+    {{ form_start(reponse_form) }}
+    <div class="form-group">
+        {{ form_widget(reponse_form) }}
+        </div>
+        <div class="form-group">
+            <a href="{{ path('app_questions') }}" id="rs">Revenir aux questions</a>
+            </div>
+    {{ form_end(reponse_form) }}
+            
+    <br>
 
-{# Formulaire de réponse #}
-{{ form_start(reponse_form) }}
-{{ form_widget(reponse_form) }}
-{{ form_end(reponse_form) }}
-<a href="{{ path('app_questions') }}" class="btn btn-danger">Revenir aux questions</a>
-
-<hr>
-
-{# Réponses #}
-<h2>Réponses :</h2>
-<ul>
-    {% for reponse in question.reponses|reverse %}
-        <li>{{ reponse.messageR }}</li>
-        Réponse de {{ reponse.user.prenom }} le {{ reponse.dateN|date('d/m/Y H:i') }}
-    {% endfor %}
-</ul>
-
+    {# Questions et réponses #}
+    <div class="card-container">
+        <div class="card">
+            <div class="card-header">
+                {% if question.user %}
+                    Question posée par {{ question.user.prenom }} le {{ question.dateN|date('d/m/Y H:i') }}
+                {% else %}
+                    Question posée par un utilisateur inconnu le {{ question.dateN|date('d/m/Y H:i') }}
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <p>{{ question.message }}</p>
+            </div>
+            
+            {# Réponses #}
+            <ul class="list-group list-group-flush">
+                {% for reponse in question.reponses|reverse %}
+                    <li class="list-group-item">
+                        <p>{{ reponse.messageR }}</p>
+                        <small>Réponse de {{ reponse.user.prenom }} le {{ reponse.dateN|date('d/m/Y H:i', 'Europe/Paris') }}</small>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
