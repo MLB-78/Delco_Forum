@@ -1,4 +1,6 @@
 <?php
+// src/Controller/QuestionsController.php
+
 namespace App\Controller;
 
 use App\Entity\Questions;
@@ -22,20 +24,16 @@ class QuestionsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // récupére l'utilisateur actuel
             $user = $this->getUser();
-            // l'utilisateur comme l'émetteur de la question
             $question->setUser($user);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($question);
             $entityManager->flush();
 
-            // redirection vers la page question
             return $this->redirectToRoute('app_questions');
         }
 
-        // récupére toutes les questions triés par date
         $questions = $this->getDoctrine()->getRepository(Questions::class)->findAllWithUsersSortedByDate();
 
         return $this->render('questions/questions.html.twig', [
@@ -61,20 +59,15 @@ class QuestionsController extends AbstractController
         $reponseForm->handleRequest($request);
 
         if ($reponseForm->isSubmitted() && $reponseForm->isValid()) {
-            // récupére l'utilisateur
             $user = $this->getUser();
-            // utilisateur comme l'émetteur de la réponse
             $reponse->setUser($user);
-            // défini la question à laquelle la réponse est associée
             $reponse->setQuestion($question);
-            // défini la date 
             $reponse->setDateN(new \DateTime());
 
             $entityManager->persist($reponse);
             $entityManager->flush();
 
-            // Redirection vers questions 
-            return $this->redirectToRoute('app_questions');
+            return $this->redirectToRoute('repondre_question', ['id' => $question->getId()]);
         }
 
         return $this->render('questions/reponses.html.twig', [
@@ -83,4 +76,3 @@ class QuestionsController extends AbstractController
         ]);
     }
 }
-?>
