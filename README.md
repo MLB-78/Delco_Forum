@@ -5,6 +5,7 @@
 
 DELCO est un projet de forum interne développé pour une entreprise fictive, visant à faciliter les échanges sur des thématiques professionnelles entre employés. 
 Le site permet la création de comptes, la connexion des utilisateurs, et offre la possibilité de poser des questions ainsi que de répondre à celles des autres employés.
+
 <img src="DELCO/d1.png" alt="Texte alternatif" width="300px">
 
 ## Fonctionnalités
