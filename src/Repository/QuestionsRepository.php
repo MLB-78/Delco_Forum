@@ -1,5 +1,4 @@
 <?php
-// src/Repository/QuestionsRepository.php
 
 namespace App\Repository;
 

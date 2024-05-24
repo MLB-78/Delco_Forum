@@ -1,5 +1,4 @@
 <?php
-// src/Entity/Questions.php
 
 namespace App\Entity;
 
@@ -45,7 +44,7 @@ class Questions
     public function __construct()
     {
         $this->reponses = new ArrayCollection();
-        $this->dateN = new \DateTime('now', new \DateTimeZone('Europe/Paris')); // Set default value to current date in Paris timezone
+        $this->dateN = new \DateTime('now', new \DateTimeZone('Europe/Paris')); 
     }
 
     public function getId(): ?int
@@ -98,7 +97,6 @@ class Questions
     public function removeReponse(Reponses $reponse): self
     {
         if ($this->reponses->removeElement($reponse)) {
-            // set the owning side to null (unless already changed)
             if ($reponse->getQuestion() === $this) {
                 $reponse->setQuestion(null);
             }

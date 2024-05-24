@@ -1,5 +1,4 @@
 <?php
-// src/Controller/QuestionsController.php
 
 namespace App\Controller;
 

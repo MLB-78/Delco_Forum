@@ -1,7 +1,5 @@
 <?php
 
-// src/Form/QuestionFormType.php
-
 namespace App\Form;
 
 use App\Entity\Questions;

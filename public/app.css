@@ -112,7 +112,7 @@ button[type="submit"]:hover {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    resize: vertical; /* Permet à l'utilisateur de redimensionner verticalement */
+    resize: vertical; 
 }
 .button-group{
     text-align: center;

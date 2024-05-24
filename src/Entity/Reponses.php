@@ -43,7 +43,7 @@ class Reponses
     public function __construct()
     {
         $this->reponses = new ArrayCollection();
-        $this->dateN = new \DateTime('now', new \DateTimeZone('Europe/Paris')); // Set default value to current date in Paris timezone
+        $this->dateN = new \DateTime('now', new \DateTimeZone('Europe/Paris')); 
     }
 
     public function getId(): ?int
