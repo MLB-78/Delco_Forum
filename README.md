@@ -1,4 +1,5 @@
 # DELCO 
+![Texte alternatif](DELCOi/d0.png)
 
 ## Description
 
