@@ -1,5 +1,5 @@
 # DELCO 
-![Texte alternatif](DELCOi/d0.png)
+![Texte alternatif](DELCO/d0.png)
 
 ## Description
 
