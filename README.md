@@ -1,5 +1,5 @@
 # DELCO 
-![Texte alternatif](DELCO/d0.png)
+<img src="DELCO/d0.png" alt="Texte alternatif" width="300px">
 
 ## Description
 
